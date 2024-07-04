@@ -64,55 +64,6 @@ COPY entrypoint.sh .
 ENTRYPOINT ["./entrypoint.sh"]
 
 
-# FROM pyspark as spark-iceberg
-
-# ARG SPARK_MAJOR_VERSION=3.5
-# ARG ICEBERG_VERSION=1.5.2
-# ARG ICEBERG_SPARK_SCALA="iceberg-spark-runtime-${SPARK_MAJOR_VERSION}_2.12"
-# ARG JAR_PACKAGE="${ICEBERG_SPARK_SCALA}-${ICEBERG_VERSION}.jar"
-
-# # Download iceberg spark runtime
-# RUN curl https://repo1.maven.org/maven2/org/apache/iceberg/${ICEBERG_SPARK_SCALA}/${ICEBERG_VERSION}/${JAR_PACKAGE} -Lo /opt/spark/jars/${JAR_PACKAGE}
-
-# # Download Java AWS bundle
-# # RUN curl https://repo1.maven.org/maven2/software/amazon/awssdk/bundle/2.17.257/bundle-2.17.257.jar -Lo /opt/spark/jars/bundle-2.17.257.jar
-# RUN curl -s https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/${ICEBERG_VERSION}/iceberg-aws-bundle-${ICEBERG_VERSION}.jar -Lo /opt/spark/jars/iceberg-aws-bundle-${ICEBERG_VERSION}.jar
-
-# # Install AWS CLI
-# RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-#  && unzip awscliv2.zip \
-#  && sudo ./aws/install \
-#  && rm awscliv2.zip \
-#  && rm -rf aws/
-
-
-# # Install PostgreSQL JDBC Driver
-# RUN curl "https://jdbc.postgresql.org/download/postgresql-42.6.0.jar" -o "postgresql-42.6.0.jar" \
-#     && mv postgresql-42.6.0.jar "${SPARK_HOME}/jars/postgresql-42.6.0.jar"
-
-# # Add iceberg spark runtime jar to IJava classpath
-# ENV IJAVA_CLASSPATH=/opt/spark/jars/*
-
-# RUN mkdir -p /home/iceberg/localwarehouse /home/iceberg/notebooks /home/iceberg/warehouse /home/iceberg/spark-events /home/iceberg
-
-# ARG jupyterlab_version=4.0.8
-
-# RUN apt-get update -y && \
-#     apt-get install -y python3-pip python3-dev && \
-#     pip3 install --upgrade pip && \
-#     pip3 install wget jupyterlab==${jupyterlab_version}
-
-# # Add a notebook command
-# RUN echo '#! /bin/sh' >> /bin/notebook \
-#  && echo 'export PYSPARK_DRIVER_PYTHON=jupyter' >> /bin/notebook \
-#  && echo "export PYSPARK_DRIVER_PYTHON_OPTS=\"lab --notebook-dir=/home/iceberg/notebooks --ip='0.0.0.0' --NotebookApp.token='' --port=8888 --no-browser --allow-root\"" >> /bin/notebook \
-# && echo 'pyspark --master local[4]' >> /bin/notebook \
-# #  && echo 'pyspark' >> /bin/notebook \
-#  && chmod u+x /bin/notebook
-
-
-# ENTRYPOINT ["./entrypoint.sh"]
-# CMD ["notebook"]
 FROM pyspark as spark-iceberg
 ARG SPARK_MAJOR_VERSION=3.5
 ARG ICEBERG_VERSION=1.5.2

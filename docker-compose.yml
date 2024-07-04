@@ -5,6 +5,8 @@ services:
     image: spark-iceberg
     container_name: spark-iceberg
     build: ./spark
+    env_file:
+      - spark/.env
     entrypoint: [ './entrypoint.sh', 'master' ]
     volumes:
       - ./warehouse:/home/iceberg/warehouse
@@ -15,6 +17,7 @@ services:
     ports:
       - '8888:8888'
       - '8080:8080'
+      - '7077:7077'
       - '10000:10000'
       - '10001:10001'
 
@@ -32,6 +35,8 @@ services:
       - ./data:/opt/spark/data
       - ./spark_apps:/opt/spark/apps
       - spark-logs:/opt/spark/spark-events
+    environment:
+      - SPARK_NO_DAEMONIZE=true
     ports:
       - '8081:8081'
 
@@ -45,6 +50,8 @@ services:
       - spark/.env
     volumes:
       - spark-logs:/opt/spark/spark-events
+    environment:
+      - SPARK_NO_DAEMONIZE=true
     ports:
       - '18080:18080'
 
