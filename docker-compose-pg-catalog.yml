@@ -19,6 +19,6 @@ services:
     build:
       context: ./spark
       args:
-        SPARK_DEFAULTS_CONF: spark-defaults-pg-catalog.conf
+        SPARK_DEFAULTS_CONF: ./conf/spark-defaults-pg-catalog.conf
     depends_on:
       - pg-catalog

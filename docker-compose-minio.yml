@@ -59,7 +59,7 @@ services:
     build:
       context: ./spark
       args:
-        SPARK_DEFAULTS_CONF: spark-defaults-minio.conf
+        SPARK_DEFAULTS_CONF: ./conf/spark-defaults-minio.conf
     networks:
       iceberg-net:
     depends_on:
