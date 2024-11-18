@@ -4,6 +4,8 @@ services:
   pg-catalog:
     image: postgres:15-alpine
     container_name: pg_catalog
+    volumes:
+      - ./minio/pg-data:/var/lib/postgresql/data
     networks:
       iceberg-net:
     environment:
@@ -31,7 +33,7 @@ services:
         aliases:
           - iceberg-data.minio-s3
     volumes:
-      - minio-s3-data:/data
+      - ./minio/data/:/data
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
       interval: 30s
@@ -76,8 +78,8 @@ services:
     networks:
       iceberg-net:
 
-volumes:
-  minio-s3-data:
+# volumes:
+#   pg-data:
 
 networks:
   iceberg-net:

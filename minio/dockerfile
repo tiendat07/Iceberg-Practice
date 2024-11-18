@@ -2,4 +2,4 @@ FROM minio/mc
 
 COPY entrypoint.sh .
 
-RUN chmod +x entrypoint.sh
+RUN chmod u+x entrypoint.sh

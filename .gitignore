@@ -1,0 +1,5 @@
+*db
+.git
+.ipynb_checkpoints/
+*data/
+*.log

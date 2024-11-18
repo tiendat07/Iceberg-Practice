@@ -42,7 +42,8 @@ clean-iceberg-minio:
 
 # minio s3 storage only instructions
 build-minio:
-		docker-compose -f docker-compose.yml -f docker-compose-minio.yml build minio-s3 minio-s3-init --no-cache
+		docker-compose -f docker-compose.yml -f docker-compose-minio.yml build minio-s3 minio-s3-init 
+#--no-cache
 
 run-minio:
 		make down-iceberg-minio && docker-compose -f docker-compose.yml -f docker-compose-minio.yml up minio-s3 minio-s3-init

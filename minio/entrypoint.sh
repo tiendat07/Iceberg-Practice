@@ -1,5 +1,6 @@
 #!/bins/sh
 
+umask 0000
 echo "INPUT_BUCKETS=$INPUT_BUCKETS"
 echo "COPY_DIR=$COPY_DIR"
 
